@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Result Management System — manage student records and filter results.">
+  <title>Student Results | EduTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="EduTrack home">
+        <span class="brand-mark">E</span>
+        <span>EduTrack<small>ACADEMIC PORTAL</small></span>
+      </a>
+
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-item active" href="#dashboard"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-item" href="#students"><span class="nav-icon">♙</span> Students <span class="nav-count" id="navStudentCount">8</span></a>
+        <a class="nav-item" href="#students"><span class="nav-icon">✓</span> Results</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Need a hand?</strong>
+          <p>This demo stores records in your current browser.</p>
+          <a href="#about">About this project <span>↗</span></a>
+        </div>
+        <div class="profile">
+          <div class="avatar">AD</div>
+          <div><strong>Admin User</strong><small>Project Demo</small></div>
+          <span class="profile-menu">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Student results</strong></div>
+        <div class="topbar-right">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">☾ <span>Dark mode</span></button>
+          <span class="system-status"><span></span> All changes saved locally</span>
+          <div class="top-avatar">AD</div>
+        </div>
+      </header>
+
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">ACADEMIC MANAGEMENT</div>
+          <h1>Student results</h1>
+          <p>Manage student records and track academic performance in one place.</p>
+        </div>
+        <button class="primary-btn" id="addStudentBtn"><span>＋</span> Add student</button>
+      </section>
+
+      <section class="stats-grid" aria-label="Student statistics">
+        <article class="stat-card">
+          <div class="stat-top"><span>Total students</span><span class="stat-icon violet">♙</span></div>
+          <div class="stat-value" id="totalStudents">8</div>
+          <div class="stat-foot"><span class="neutral-dot"></span> Students in this workspace</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Passed</span><span class="stat-icon green">✓</span></div>
+          <div class="stat-value" id="passedStudents">6</div>
+          <div class="stat-foot"><span class="green-text" id="passRate">75%</span> pass rate</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Failed</span><span class="stat-icon red">×</span></div>
+          <div class="stat-value" id="failedStudents">2</div>
+          <div class="stat-foot"><span class="red-text">Needs attention</span> · below pass mark</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Average marks</span><span class="stat-icon blue">↗</span></div>
+          <div class="stat-value" id="averageMarks">68.5<span class="value-unit">/100</span></div>
+          <div class="stat-foot">Across all subjects</div>
+        </article>
+      </section>
+
+      <section class="results-panel" id="students">
+        <div class="panel-heading">
+          <div>
+            <h2>Student directory</h2>
+            <p>Review, search and manage student result records.</p>
+          </div>
+          <button class="secondary-btn" id="exportBtn"><span>↓</span> Export CSV</button>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="searchInput" placeholder="Search name or roll number..." aria-label="Search students">
+            <kbd>⌘ K</kbd>
+          </label>
+          <div class="filter-wrap">
+            <label for="statusFilter">Result status</label>
+            <select id="statusFilter">
+              <option value="all">All results</option>
+              <option value="pass">Pass only</option>
+              <option value="fail">Fail only</option>
+            </select>
+          </div>
+          <div class="filter-wrap">
+            <label for="classFilter">Class</label>
+            <select id="classFilter">
+              <option value="all">All classes</option>
+              <option value="10-A">Class 10-A</option>
+              <option value="10-B">Class 10-B</option>
+              <option value="12-A">Class 12-A</option>
+            </select>
+          </div>
+          <div class="filter-wrap sort-wrap">
+            <label for="sortFilter">Sort by</label>
+            <select id="sortFilter">
+              <option value="name-asc">Name (A–Z)</option>
+              <option value="name-desc">Name (Z–A)</option>
+              <option value="marks-desc">Highest marks</option>
+              <option value="marks-asc">Lowest marks</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">STUDENT</th>
+                <th scope="col">ROLL NUMBER</th>
+                <th scope="col">CLASS</th>
+                <th scope="col">MARKS</th>
+                <th scope="col">RESULT</th>
+                <th scope="col" class="actions-heading">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">⌕</div>
+            <strong>No students found</strong>
+            <p>Try changing your search or filters.</p>
+            <button class="secondary-btn" id="resetFiltersBtn">Reset filters</button>
+          </div>
+        </div>
+        <div class="table-footer">
+          <span id="recordCount">Showing 8 students</span>
+          <span class="pass-rule">Pass mark: <strong>33/100</strong></span>
+        </div>
+      </section>
+
+      <section class="project-note" id="about">
+        <div class="note-icon">ⓘ</div>
+        <div><strong>Portfolio demo</strong><p>Built with semantic HTML, responsive CSS and vanilla JavaScript. Records are stored in this browser using Local Storage; this demo has no authentication or server-side database.</p></div>
+      </section>
+      <footer>© 2026 EduTrack · Student Result Management System <span>Built for learning & portfolio use</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <div><div class="eyebrow">STUDENT RECORD</div><h2 id="modalTitle">Add student</h2></div>
+        <button class="icon-btn" id="closeModalBtn" aria-label="Close dialog">×</button>
+      </div>
+      <form id="studentForm">
+        <input type="hidden" id="studentId">
+        <div class="form-grid">
+          <div class="form-field full-width">
+            <label for="studentName">Full name</label>
+            <input id="studentName" name="studentName" type="text" maxlength="70" placeholder="e.g. Aanya Sharma" required>
+          </div>
+          <div class="form-field">
+            <label for="rollNumber">Roll number</label>
+            <input id="rollNumber" name="rollNumber" type="text" maxlength="20" placeholder="e.g. STU-009" required>
+          </div>
+          <div class="form-field">
+            <label for="studentClass">Class</label>
+            <select id="studentClass" name="studentClass" required>
+              <option value="10-A">Class 10-A</option>
+              <option value="10-B">Class 10-B</option>
+              <option value="12-A">Class 12-A</option>
+            </select>
+          </div>
+          <div class="form-field full-width">
+            <label for="studentMarks">Marks <span>out of 100</span></label>
+            <input id="studentMarks" name="studentMarks" type="number" min="0" max="100" step="1" placeholder="Enter marks from 0 to 100" required>
+            <small class="field-hint">33 or more = Pass. Below 33 = Fail.</small>
+          </div>
+        </div>
+        <p class="form-error hidden" id="formError" role="alert"></p>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="primary-btn" id="saveStudentBtn">Save student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
