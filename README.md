@@ -57,6 +57,17 @@ This is a frontend portfolio demo. Local Storage data is specific to the browser
 - CSV file generation
 - Responsive design and accessibility basics
 
+ HOW TO DEPLOYE
+  Step 1: Project files check karo
+  Terminal mein ye command chalao:
+<d>
+Tumhe index.html, style.css, app.js aur README.md jaisi files dikhni chahiye.
+Step 2: Files ko Git mein add karo
+git add .
+Step 3: Pehla commit banao
+git commit -m "Initial commit: Student Result Management System"
+Step 4: GitHub par upload karo
+git push -u origin main
 ## License
 
 Educational and portfolio use. Add a license file if you choose to publish this project under a specific open-source license.
